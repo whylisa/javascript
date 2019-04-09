@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ColorDivide.JS</title>
+	<style>
+	* {margin:0; padding:0;}
+	body {background: #CCC;}
+	::-moz-selection{ background: #yellow; color:#fff; text-shadow: none; }
+	::selection { background:#red; color:#fff; text-shadow: none; } 
+	.wrapper {
+		width: 710px;
+		margin-left: auto;
+		margin-right: auto;
+		margin-top: 20px;
+		background: #FFFFFF;
+		padding: 50px;
+	}
+	.code {
+		background: #f8f8f8;
+		border: 1px solid #ccc;
+		margin-bottom: 2em;
+		padding: 10px;
+	}
+	</style>
+</head>
+<body>
+	<div class="wrapper">
+		<header>
+			<h1>colorful.js</h1>
+
+			<p>一个轻量级的JavaScript插件，可以通过这个插件对字母、单词或句子随机进行染色,也可以自定义颜色进行染色</p>
+		</header>
+		<article>
+			<h3>1、初步使用</h3>
+			<h4>HTML</h4>
+			<div class="code">
+				&lt;div id="demo1" class="demo"&gt;<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;&lt;h1&gt;ColorDivide&lt;/h1&gt;<br>
+				&lt;/div&gt;
+			</div>
+			<h4>JavaScript</h4>
+			<div class="code">
+				ColorDivide.listen('#demo1');
+			</div>
+
+			<h4>Result</h4>
+			<div class="code">
+				<h1 id="demo1">ColorDivide</h1>
+			</div>
+
+			<h3>2、分割单词</h3>
+			<h4>HTML</h4>
+			<div class="code">
+				&lt;div id="demo2" class="demo"&gt;<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;&lt;h1&gt;This is ColorDivide&lt;/h1&gt;<br>
+				&lt;/div&gt;
+			</div>
+			<h4>JavaScript</h4>
+			<div class="code">
+				ColorDivide.config({splitter: 'word'}).listen('#demo2');
+			</div>
+			<h4>Result</h4>
+			<div class="code">
+				<h1 id="demo2">This is ColorDivide</h1>
+			</div>
+
+			<h3>3、划分句子(以&lt;br&gt;结束的句子)</h3>
+			<h4>HTML</h4>
+			<div class="code">
+				&lt;div id="demo3"&gt;<br>
+    			&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;This is an amazing&lt;br&gt;<br>
+    			&nbsp;&nbsp;&nbsp;&nbsp;Revolution in Typography.&lt;br&gt;<br>
+    			&nbsp;&nbsp;&nbsp;&nbsp;The possibilities are endless:&lt;br&gt;<br>
+    			&nbsp;&nbsp;&nbsp;&nbsp;Coloring, Vertical spacing, and Kerning.&lt;br&gt;&lt;/p&gt;
+<br>&lt;/div&gt;
+			</div>
+			<h4>JavaScript</h4>
+			<div class="code">
+				ColorDivide.config({splitter: 'line'}).listen('#demo3');
+			</div>
+			<h4>Result</h4>
+			<div class="code">
+				<div id="demo3">
+					<p>
+						This is an amazing<br>
+						Revolution in Typography.<br>
+						The possibilities are endless:<br>
+						Coloring, Vertical spacing, and Kerning.<br>
+					</p>
+				</div>
+			</div>
+		</article>
+	</div>
+	<script src="colorful.js"></script>
+	<script>
+	ColorDivide.listen('#demo1');
+	ColorDivide.config({splitter: 'word'}).listen('#demo2');
+	ColorDivide.config({splitter: 'line'}).listen('#demo3');
+	</script>
+</body>
+</html>
