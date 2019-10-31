@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			function currying(fn, ...args) {
+				if(args.length >= fn.length) {
+					return fn(...args)
+				}else {
+					return (...args) => currying(fn,...args, ...args2)
+				}
+			}
+			const curryingFun = currying(fun)
+			
+			console.log(curryingFun(1)(2)(3))
+			console.log(currying(1,2)(3))
+			console.log(currying(1,2,3))
+		</script>
+	</body>
+</html>
