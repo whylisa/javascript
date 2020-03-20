@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		没有防抖<input type="" name="" id="unDebounce" value="" />
+		防抖<input type="" name="" id="" value="" />
+		<script type="text/javascript">
+			//模拟一段ajax请求
+			//在事件被触发n秒后再执行回调，如果在这n秒内又被触发，则重新计时。
+			//在一秒后执行回调
+			function ajax(content) {
+				console.log('ajax request ' + content + ":"+(+new Date()))
+			}
+			// let inputa = document.getElementById('unDebounce')
+
+			// function timeE(content) {
+			// 	return setTimeout(function() {
+			// 		ajax(content)
+			// 	}, 1000)
+			// }
+			// inputa.addEventListener('keyup', function(e) {
+
+			// 		clearTimeout(ajax.id)
+			// 		ajax.id = timeE(e.target.value)
+			// })
+
+
+
+			// function debounce(fun, delay) {
+			// 	return function(args) {
+			// 		let that = this
+			// 		let _args = args
+			// 		clearTimeout(fun.id) //如果没在1秒之后进来直接清掉
+			// 		fun.id = setTimeout(function() {
+			// 			fun.call(that, _args)
+			// 		}, delay)
+			// 	}
+			// }
+
+			// let inputb = document.getElementById('unDebounce')
+
+			// let debounceAjax = debounce(ajax, 500)
+
+			// inputb.addEventListener('keyup', function(e) {
+			// 	debounceAjax(e.target.value)
+			// })
+			// 规定在一个单位时间内，只能触发一次函数。如果这个单位时间内触发多次函数，只有一次生效。1000
+			let inputa = document.getElementById('unDebounce')
+			let flag = true
+			let time = 1000
+			let old
+			inputa.addEventListener('keyup', function(e) {
+				let newTiem = +new Date()
+				if (flag) {
+					old = +new Date()
+					flag = false
+					ajax(e.target.value)
+				} else {
+					if (newTiem - old < 5000) {
+             
+					} else {
+						old = +new Date()
+						ajax(e.target.value)
+					}
+				}
+			})
+		</script>
+	</body>
+</html>
