@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+       weakMap只接受对象作为键名
+       const map = new WeakMap()
+       map.set(1,2) //
+          // TypeError: Invalid value used as weak map key
+       map.set(null, 2);
+          // TypeError: Invalid value used as weak map key
+    //    weakMaps保持了对键名所引用的对象的弱引用
+    //    弱引用： 在计算及设计中，弱引用与强引用相对，是指不能确保其引用的对象不会被垃圾回收的引用，
+    //    一个对象弱只是被弱引用所引用，则认为是不可访问的，并因此可能在任何时候被回收
+    在js中，一般我们创建的对象都是强引用： var obj = new Object();
+    </script>
+</body>
+</html>
