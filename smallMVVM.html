@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input typy='text' id='a'></input>
+    <p id='b'></p>
+    <script>
+     var obj = {}
+     var value = "aa"
+     Object.defineProperty(obj,'value', {
+         get: function () {
+             return value;
+         },
+         set: function (newValue) {
+             value = newValue
+             document.getElementById('a').value = value
+             document.getElementById('b').innerText = value
+         }
+     })
+
+     document.getElementById('a').addEventListener('keyup',function (e) {
+         obj.value = e.target.value
+     })
+    </script>
+</body>
+</html>
