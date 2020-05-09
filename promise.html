@@ -63,6 +63,41 @@
 						break
 				}
 			}
+
+			class Promise {
+				constructor(exector) {
+					this.status = 'pendding'
+					this.value = undefined
+					this.reason = undefined
+
+					let resolve = (data) => {
+						if(this.status === 'pendding') {
+							this.status = 'resolve'
+							this.value = data
+						}
+					}
+					let reject = (data) => {
+						if(this.status === 'pendding') {
+							this.status = 'reject'
+							this.reason = data
+						}
+					}
+
+					try {
+						exector(resolve,reject)
+					} catch (e) {
+						reject(e)
+					}
+				}
+			}
+			exector 这是实例Promise对象在构造器中传入的参数，一般是一个 function (resolve,reject){}
+			status Promise的状态，默认是pendding状态，每当调用到resolve和reject方法是，就会改变其值，
+			在后面的then方法中会用到
+
+			value resolve调用成功后，调用reoslve 方法里面的参数值
+			reason reject回调成功后，调用reject方法里面的参数值
+			resolve 声明resolve方法在构造器内，通过传入的exector 方法其中，用以给使用者回调
+			reject 声明reject 方法在构造器内，通过传入的executor方法传入其中，用以给使用者回调
 		</script>
 	</body>
 </html>

@@ -171,7 +171,8 @@ function resolvePromise(promise2,x,resolve,reject){
       resolve()
     }).then( () => {
       console.log(4)
-    })
+      
+    }).then()
     console.log(5)
     //catch方法
     catch(onRejected){
@@ -243,3 +244,10 @@ function resolvePromise(promise2,x,resolve,reject){
   //npm install promises-aplus-tests 用来测试自己的promise 符不符合promise规范  使用
   module.exports = Promise
   // export default Promise
+  class Promise {
+      constructor(executor) {
+          this.status = 'pedding'
+          this.value = undefined
+          this.reason = undefined
+      }
+  }
