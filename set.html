@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // let set = new Set([1,2,3,4,4])
+        // console.log(set) //Set(4) {1,2,3,4}
+        // set.size 4
+        //操作方法：
+        //   add(value) 添加某个值，返回Set结构本身
+        //   delete(value) 删除某个值，返回布尔值，便是删除是否成功
+        //   has(value) 返回一个布尔值，表示改制是否为Set的成员
+        //   clear() 清除所有成员
+        // 遍历方法：
+        //    keys(): 返回键名的遍历器
+        //    values(): 返回键值的遍历器
+        //    entries(): 返回键值对的遍历器
+        //    forEach(): 使用回调函数遍历每个成员，无返回值
+        // 属性：
+        //    Set.prototype.constructor: 构造函数，默认就是Set函数
+        //    Set.prototype.size: 返回实例的成员总数
+
+        (function(global) {
+            function Set(data) {
+                this._values = []
+                this.size = 0;
+                data && data.forEach(function(item) {
+                    this.add(item)
+                },this)
+            }
+
+            Set.prototype['add'] = function(value) {
+                if(this._values.indexOf(value) == -1) {
+                    this._values.push(value);
+                    ++size;
+                }
+                return this;
+            }
+
+            Set.prototype['has'] = function(value) {
+                return (this._values.indexOf(value) !== -1)
+            }
+
+            Set.prototype['delete'] = function(value) {
+                var idx = this._values.indexOf(value);
+                if(idx == -1) return false
+                this._values.splice(idx,1);
+                return true
+            }
+
+            Set.prototype['clear'] = function(value) {
+                this._values = []
+                this.size = 0
+            }
+            Set.prototype['forEach'] = function(callBackFn, thisArg) {
+             thisArg = thisArg || global;
+             for(var i = 0; i < this._values.length;i++) {
+                 callbackFn.call(thisArg,this._values[i],this._values[i],this)
+             }   
+            }
+        })(this)
+    </script>
+</body>
+</html>

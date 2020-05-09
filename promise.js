@@ -162,6 +162,17 @@ function resolvePromise(promise2,x,resolve,reject){
       }
       return promise2
     }
+    console.log(1)
+    setTimeout(function(){
+     console.log(2)
+    },0)
+    new promise(function(resolve) {
+      console.log(3)
+      resolve()
+    }).then( () => {
+      console.log(4)
+    })
+    console.log(5)
     //catch方法
     catch(onRejected){
       return this.then(null,onRejected)
@@ -232,10 +243,3 @@ function resolvePromise(promise2,x,resolve,reject){
   //npm install promises-aplus-tests 用来测试自己的promise 符不符合promise规范  使用
   module.exports = Promise
   // export default Promise
-  class Promise {
-      constructor(executor) {
-          this.status = 'pedding'
-          this.value = undefined
-          this.reason = undefined
-      }
-  }

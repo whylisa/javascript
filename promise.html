@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Document</title>
+	</head>
+	<body>
+		<script>
+			设定三个状态: pending, fulfilled, rejected 只能有pending改变为fulfilled, reject, 并且只能改变一次,
+				MyPromise接受一个函数exector, exector有两个参数resolve方法, 和reject方法
+			resolve将pedding改为fulfilled
+			reject将pending改为rejected
+			promise变为fulfilled状态后具有一个唯一的value
+			promise变为rejected状态具有一个唯一的reason
+
+			const PENDING = 'pending'
+			const FULFILLED = 'fulfilled'
+			const REJECTED = 'rejected'
+
+			function MyPromise(exector) {
+				this.state = PENDING
+				this.value = null
+				this.reason = null
+
+				const resolve = (value) => {
+					if (this.state === PENDING) {
+						this.state = FULFILLED
+						this.value = value
+					}
+				}
+				const reject = (reason) => {
+					if (this.state === PENDING) {
+						this.state = REJECTED
+						this.reason = reason
+					}
+				}
+				
+				try {
+					exector(resolve,reject);
+				} catch (reason) {
+					reject(reason)
+				}
+			}
+			
+			.then方法接受两个参数onFulfilled,onRejected, 他们分别在状态由PENDING
+			改为FULFILLED,REJECTED后调用
+			
+			一个promise可绑定多个then方法
+			then方法可以同步调用也可以异步调用
+			同步调用: 状态已经改变,直接调用onFulfilled方法,
+			异步调用: 状态还是PENDING,将onFulfilled,onRejected 分别加入两个函数数组,
+			onFufilledCallbacks,onRejectedCallbacks当异步调用resolve和reject时
+			将两个数组中绑定的时间循环执行
+			
+			Mypromise.prototype.then =  function (onFulfilled, onRejected) {
+				switch (this.state) {
+					case FULFILLED:
+					  onFulfilled(this.value)
+						break;
+					case REJECTED:
+					  onFulfilled(this.value)
+						break
+				}
+			}
+		</script>
+	</body>
+</html>
