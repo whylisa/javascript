@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			// 对象解构
+			// let node = {
+			// 	type: 'str',
+			// 	name: 'string'
+			// }
+			// let { type, name } = node
+			// let { type: newType, name: newName} = node,
+			// ({type, name} = node) //单独使用时
+			
+			// ({type,name,value = 1} = node) // 默认值
+			// let moNode = {
+			// 	type: 'str',
+			// 	name: 'string',
+			// 	more: {
+			// 		start: {
+			// 			a: 1,
+			// 			b: 2
+			// 		},
+			// 		end: {
+			// 			a: 1,
+			// 			b: 2
+			// 		}
+			// 	}
+			// }
+			// let {more: {start}} = moNode 
+			// console.log(start.a)
+			
+			// // 数组解构
+			// let color = ['red', 'green', 'blue']
+			// let [firstColor, secondColor ] = color
+			// let s = [1,2,3,4,5]
+			// let [,,T] = s
+			// console.log(T) // 3
+			// // 交换变量
+			// let a = 3
+			// let b = 4
+			// [b,a] = [a,b]
+			
+			// let  colors = ['red']
+			// let [red, bule='bule'] = colors
+			//嵌套解构
+			// let color = [1,[2,3,4],5]
+			// let [a,[v,s,n],c] = color
+			// let [aa,bb,cc] = color
+			// console.log(bb)
+			// let color = [1,2,3,4]
+			// let [a, ...b] = color
+			// console.log(b)
+			// 混合解构
+			// let a = {
+			// 	type: 1,
+			// 	ioc: {
+			// 		start: 2,
+			// 		end: {
+			// 			a: 3
+			// 		}
+			// 	},
+			// 	range: [0,3]
+			// }
+			// let { ioc: {end}, range: [c,d]} = a;
+			// console.log(d)
+			// 参数解构
+			function setCookie(name, value, options) {
+				options = options || {}
+				let secure = options.secure
+				path = options.path
+				domain = optins.domain
+				expires = options.expires
+			}
+		</script>
+	</body>
+</html>
