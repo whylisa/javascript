@@ -48,25 +48,50 @@
 			// 	debounceAjax(e.target.value)
 			// })
 			// 规定在一个单位时间内，只能触发一次函数。如果这个单位时间内触发多次函数，只有一次生效。1000
-			let inputa = document.getElementById('unDebounce')
-			let flag = true
-			let time = 1000
-			let old
-			inputa.addEventListener('keyup', function(e) {
-				let newTiem = +new Date()
-				if (flag) {
-					old = +new Date()
-					flag = false
-					ajax(e.target.value)
-				} else {
-					if (newTiem - old < 5000) {
+			// let inputa = document.getElementById('unDebounce')
+			// let flag = true
+			// let time = 1000
+			// let old
+			// inputa.addEventListener('keyup', function(e) {
+			// 	let newTiem = +new Date()
+			// 	if (flag) {
+			// 		old = +new Date()
+			// 		flag = false
+			// 		ajax(e.target.value)
+			// 	} else {
+			// 		if (newTiem - old < 5000) {
              
-					} else {
-						old = +new Date()
-						ajax(e.target.value)
-					}
-				}
-			})
+			// 		} else {
+			// 			old = +new Date()
+			// 			ajax(e.target.value)
+			// 		}
+			// 	}
+			// })
+			  function throttle(fun, delay) {
+			        let last, deferTimer
+			        return function (args) {
+			            let that = this
+			            let _args = arguments
+			            let now = +new Date()
+			            if (last && now < last + delay) {
+			                clearTimeout(deferTimer)
+			                deferTimer = setTimeout(function () {
+			                    last = now
+			                    fun.apply(that, _args)
+			                }, delay)
+			            }else {
+			                last = now
+			                fun.apply(that,_args)
+			            }
+			        }
+			    }
+			
+			    let throttleAjax = throttle(ajax, 5000)
+			
+			    let inputc = document.getElementById('unDebounce')
+			    inputc.addEventListener('keyup', function(e) {
+			        throttleAjax(e.target.value)
+			    })
 		</script>
 	</body>
 </html>

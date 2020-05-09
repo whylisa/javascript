@@ -6,24 +6,991 @@
 	</head>
 	<body>
 		<script type="text/javascript">
-			Function.prototype.bind = function() {
-				var self = this, // 保存原函数
-					context = [].shift.call(arguments), // 需要绑定的 this 上下文
-					args = [].slice.call(arguments); // 剩余的参数转成数组
-				return function() { // 返回一个新的函数
-					return self.apply(context, [].concat.call(args, [].slice.call(arguments)));
-					// 执行新的函数的时候，会把之前传入的 context 当作新函数体内的 this
-					// 并且组合两次分别传入的参数，作为新函数的参数
+			// Function.prototype.bind = function() {
+			// 	var self = this, // 保存原函数
+			// 		context = [].shift.call(arguments), // 需要绑定的 this 上下文
+			// 		args = [].slice.call(arguments); // 剩余的参数转成数组
+			// 	return function() { // 返回一个新的函数
+			// 		return self.apply(context, [].concat.call(args, [].slice.call(arguments)));
+			// 		// 执行新的函数的时候，会把之前传入的 context 当作新函数体内的 this
+			// 		// 并且组合两次分别传入的参数，作为新函数的参数
+			// 	}
+			// };
+			// var obj = {
+			// 	name: 'sven'
+			// };
+			// var func = function(a, b, c, d) {
+			// 	console.log(this.name); // 输出：sven
+			// 	console.log([a, b, c, d]) // 输出：[ 1, 2, 3, 4 ]
+			// }.bind(obj, 1, 2);
+			// func(3, 4);
+			for (var i = 0; i < 3; i++) {
+				// console.log(i)
+		      setTimeout(function () {
+						
+					console.log(i)
+					},1000)
 				}
-			};
-			var obj = {
-				name: 'sven'
-			};
-			var func = function(a, b, c, d) {
-				console.log(this.name); // 输出：sven
-				console.log([a, b, c, d]) // 输出：[ 1, 2, 3, 4 ]
-			}.bind(obj, 1, 2);
-			func(3, 4);
 		</script>
 	</body>
+</html>
+
+
+
+<?php $this->renderPartial('/_include/header')?>
+<!-- Banner -->
+<header class="header text-white h-600 p-0 overflow-hidden bg-fixed"  data-scrim-top="3">
+
+style="background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQ0MCIgaGVpZ2h0PSI2MDAiIHZpZXdCb3g9IjAgMCAxNDQwIDYwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+PHRpdGxlPkhlcm88L3RpdGxlPjxkZWZzPjxsaW5lYXJHcmFkaWVudCB4MT0iMTAwJSIgeTE9IjEwMCUiIHgyPSI1MCUiIHkyPSIwJSIgaWQ9ImIiPjxzdG9wIHN0b3AtY29sb3I9IiM5NjdGRTAiIG9mZnNldD0iMCUiLz48c3RvcCBzdG9wLWNvbG9yPSIjM0Y1MTk3IiBvZmZzZXQ9IjEwMCUiLz48L2xpbmVhckdyYWRpZW50PjxwYXRoIGlkPSJhIiBkPSJNMCAwaDE0NDB2NjAwSDB6Ii8+PC9kZWZzPjxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+PG1hc2sgaWQ9ImMiIGZpbGw9IiNmZmYiPjx1c2UgeGxpbms6aHJlZj0iI2EiLz48L21hc2s+PHVzZSBmaWxsPSJ1cmwoI2IpIiB4bGluazpocmVmPSIjYSIvPjxnIG9wYWNpdHk9Ii4yIiBtYXNrPSJ1cmwoI2MpIiBzdHJva2U9IiNGRkYiIHN0cm9rZS13aWR0aD0iMiI+PHBhdGggZD0iTTUzNC42NTMgMjM2LjczN0g1MjIuMDh2OS4yNzRsLTExLjc3OC05LjI3NGgtMzguMjg3Yy0yLjIwOCAwLTQuMDE1LTEuNTQxLTQuMDE1LTMuNDI1di0zMi44ODZjMC0xLjg4NCAxLjgwNy0zLjQyNiA0LjAxNS0zLjQyNmg2Mi42MzhjMi4yMDggMCA0LjAxNSAxLjU0MiA0LjAxNSAzLjQyNnYzMi44ODZjMCAxLjg4NC0xLjgwNyAzLjQyNS00LjAxNSAzLjQyNXpNNDc5LjkgMjI2LjMzNmg0Ni44NjhNNDc5LjkgMjE2LjM0aDQ2Ljg2OG0tNDYuODY4LTkuOTk3aDIzLjQzNG0zNjguMjM4IDI3LjUyMWgxNi4xMTR2MTEuODdsMTUuMDk2LTExLjg3aDQ5LjA3MmMyLjgzIDAgNS4xNDYtMS45NzMgNS4xNDYtNC4zODV2LTQyLjA5NGMwLTIuNDEyLTIuMzE2LTQuMzg1LTUuMTQ2LTQuMzg1aC04MC4yODJjLTIuODMgMC01LjE0NiAxLjk3My01LjE0NiA0LjM4NXY0Mi4wOTRjMCAyLjQxMiAyLjMxNiA0LjM4NSA1LjE0NiA0LjM4NXptNzAuMTc2LTEzLjMxNGgtNjAuMDdtNjAuMDctMTIuNzk2aC02MC4wN202MC4wNy0xMi43OTVoLTMwLjAzNW0xNTYuOTgyLTE4LjQ4NGgyNS4xNDV2MTguNTQ2bDIzLjU1Ny0xOC41NDZoNzYuNTczYzQuNDE2IDAgOC4wMy0zLjA4MyA4LjAzLTYuODUxVjEwMy44NWMwLTMuNzY4LTMuNjE0LTYuODUxLTguMDMtNi44NTFoLTEyNS4yNzVjLTQuNDE3IDAtOC4wMyAzLjA4My04LjAzIDYuODUxdjY1Ljc3M2MwIDMuNzY4IDMuNjEzIDYuODUgOC4wMyA2Ljg1em0xMDkuNTA1LTIwLjgwM2gtOTMuNzM1bTkzLjczNS0xOS45OTNoLTkzLjczNW05My43MzUtMTkuOTkzaC00Ni44NjhtLTY0LjA0NSAzNzYuMDczaDIxLjA3MnYxNS41NzlsMTkuNzQxLTE1LjU4aDY0LjE3YzMuNzAyIDAgNi43My0yLjU4OSA2LjczLTUuNzU0di01NS4yNDljMC0zLjE2NS0zLjAyOC01Ljc1NS02LjczLTUuNzU1aC0xMDQuOTgzYy0zLjcwMiAwLTYuNzMgMi41OS02LjczIDUuNzU1djU1LjI0OWMwIDMuMTY1IDMuMDI4IDUuNzU1IDYuNzMgNS43NTV6bTkxLjc2OC0xNy40NzRoLTc4LjU1M203OC41NTMtMTYuNzk1aC03OC41NTNtNzguNTUzLTE2Ljc5NGgtMzkuMjc3bTE3NC42MTItNzYuNzQ2aDUwLjI5djM3LjA5M2w0Ny4xMTMtMzcuMDkzaDE1My4xNDZjOC44MzQgMCAxNi4wNjEtNi4xNjcgMTYuMDYxLTEzLjcwM1YyMTguNzAzYzAtNy41MzctNy4yMjctMTMuNzAzLTE2LjA2LTEzLjcwM2gtMjUwLjU1Yy04LjgzNCAwLTE2LjA2IDYuMTY2LTE2LjA2IDEzLjcwM3YxMzEuNTQ0YzAgNy41MzYgNy4yMjYgMTMuNzAzIDE2LjA2IDEzLjcwM3ptMjE5LjAxMS00MS42MDZIMTMyNS45M20xODcuNDcxLTM5Ljk4NkgxMzI1LjkzbTE4Ny40NzEtMzkuOTg2aC05My43MzdtLTg0LjgwMiA1OTQuNjAxaDEwNi42MDJ2NzguNjM3bDk5Ljg2Ni03OC42MzdoMzI0LjYyNmMxOC43MjQgMCAzNC4wNDQtMTMuMDcyIDM0LjA0NC0yOS4wNVY1MjkuMDVjMC0xNS45NzctMTUuMzItMjkuMDQ5LTM0LjA0NC0yOS4wNDloLTUzMS4wOTRjLTE4LjcyNSAwLTM0LjA0NSAxMy4wNzItMzQuMDQ1IDI5LjA1djI3OC44NzRjMCAxNS45NzcgMTUuMzIgMjkuMDUgMzQuMDQ1IDI5LjA1em00NjQuMjQyLTg4LjIwM2gtMzk3LjM4OG0zOTcuMzg4LTg0Ljc3MmgtMzk3LjM4OG0zOTcuMzg4LTg0Ljc3aC0xOTguNjk3TTEzNDkuMzkgNzguOTVoNTAuMjl2MzcuMDkzbDQ3LjExMy0zNy4wOTNoMTUzLjE0NmM4LjgzNCAwIDE2LjA2MS02LjE2NyAxNi4wNjEtMTMuNzAzVi02Ni4yOTdjMC03LjUzNy03LjIyNy0xMy43MDMtMTYuMDYtMTMuNzAzaC0yNTAuNTVjLTguODM0IDAtMTYuMDYgNi4xNjYtMTYuMDYgMTMuNzAzVjY1LjI0N2MwIDcuNTM2IDcuMjI2IDEzLjcwMyAxNi4wNiAxMy43MDN6bTIxOS4wMTEtNDEuNjA2SDEzODAuOTNtMTg3LjQ3MS0zOS45ODZIMTM4MC45M20xODcuNDcxLTM5Ljk4NmgtOTMuNzM3TTM1NC43MzQgMTk3LjUwMWgtMjMuOTA2djE3LjYybC0yMi4zOTUtMTcuNjJoLTcyLjc5OGMtNC4yIDAtNy42MzUtMi45MjktNy42MzUtNi41MDlWMTI4LjUxYzAtMy41OCAzLjQzNi02LjUwOSA3LjYzNS02LjUwOWgxMTkuMDk5YzQuMTk5IDAgNy42MzQgMi45MjkgNy42MzQgNi41MDl2NjIuNDgzYzAgMy41OC0zLjQzNSA2LjUxLTcuNjM0IDYuNTF6bS0xMDQuMTA4LTE5Ljc2Mmg4OS4xMTVtLTg5LjExNS0xOC45OTRoODkuMTE1bS04OS4xMTUtMTguOTk0aDQ0LjU1OU00MDQgNTAwLjgzOGgtMTcuMzU1djEyLjc5N2wtMTYuMjU3LTEyLjc5N2gtNTIuODQ2Yy0zLjA0OCAwLTUuNTQyLTIuMTI4LTUuNTQyLTQuNzI4di00NS4zODNjMC0yLjYgMi40OTQtNC43MjcgNS41NDItNC43MjdINDA0YzMuMDQ4IDAgNS41NDIgMi4xMjcgNS41NDIgNC43Mjd2NDUuMzgzYzAgMi42LTIuNDk0IDQuNzI4LTUuNTQyIDQuNzI4em0tNzUuNTc1LTE0LjM1NGg2NC42OTFtLTY0LjY5MS0xMy43OTZoNjQuNjkxbS02NC42OTEtMTMuNzk1aDMyLjM0Nk0xMDYuMTgyIDEzNS4xMDdINjMuMzI5djMxLjUzbC00MC4xNDYtMzEuNTNoLTEzMC40OTdjLTcuNTI3IDAtMTMuNjg2LTUuMjQxLTEzLjY4Ni0xMS42NDdWMTEuNjQ3Qy0xMjEgNS4yNDEtMTE0Ljg0MSAwLTEwNy4zMTQgMGgyMTMuNDk2YzcuNTI3IDAgMTMuNjg1IDUuMjQxIDEzLjY4NSAxMS42NDdWMTIzLjQ2YzAgNi40MDYtNi4xNTggMTEuNjQ3LTEzLjY4NSAxMS42NDd6TS04MC40NCA5OS43NDNINzkuMzA3TS04MC40NCA2NS43NTRINzkuMzA3TS04MC40NCAzMS43NjZILS41NjVNMTU5LjY5IDUyNi43MzVoLTcwLjN2NTEuNzQ0bC02NS44NTgtNTEuNzQ0aC0yMTQuMDhjLTEyLjM0OSAwLTIyLjQ1Mi04LjYwMi0yMi40NTItMTkuMTE1VjMyNC4xMTVjMC0xMC41MTMgMTAuMTAzLTE5LjExNSAyMi40NTEtMTkuMTE1aDM1MC4yNGMxMi4zNDggMCAyMi40NTEgOC42MDIgMjIuNDUxIDE5LjExNVY1MDcuNjJjMCAxMC41MTMtMTAuMTAzIDE5LjExNS0yMi40NTEgMTkuMTE1em0tMzA2LjE1Mi01OC4wNGgyNjIuMDY0bS0yNjIuMDY0LTU1Ljc4MWgyNjIuMDY0bS0yNjIuMDY0LTU1Ljc4MWgxMzEuMDM0Ii8+PC9nPjwvZz48L3N2Zz4=)"
+    <el-carousel height="600px">
+      <el-carousel-item v-for="item in 4" :key="item">
+        <h3>{{ item }}</h3>
+      </el-carousel-item>
+    </el-carousel>
+  <canvas class="constellation" data-radius="0"></canvas>
+
+    <div class="container text-center mt-12">
+
+        <h1>每条信息都会带来机会</h1>
+        <p class="lead">把握每一次机会，满足每一个客户的需求。</p>
+
+        <div class="row mt-6">
+            <form class="col-md-8 col-xl-6 input-glass input-round mx-auto">
+                <div class="input-group input-group-lg">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-envelope"></i></span>
+                    </div>
+                    <input type="text"  class="form-control" placeholder="请输入您的手机号码，免费获得100条体验" id="mobile">
+                    <span class="input-group-append">
+              <button class="btn btn-light" id="popup-submit" type="button">获取短信验证码</button>
+              <div id="popup-captcha"></div>
+            </span>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+</header>
+
+
+
+
+
+
+
+<div class="container">
+
+    <div class="row h-100">
+        <div class="col-lg-8 align-self-center">
+            <!--
+                                <h1>动动客短信平台</h1>
+                                <p class="lead-2 mt-5 mb-0">不舍一心，不止于快</p>
+                                <p class="lead-2 mb-7">集群架构，三网合一，API简单易用，7*24小时全天候服务</p>
+                                <a href = "JavaScript:void(0)" class="btn btn-primary w-200" >查看详情</a>-->
+            <!--                    <a href = "JavaScript:void(0)" onclick = "openDialog()"class="btn btn-primary w-200" >查看详情</a>-->
+        </div>
+
+        <!--                <div id="light" class="white_content">-->
+        <!--                    <video width="700" height="400" controls="" loop="loop">-->
+        <!--                        <source src="--><?php //echo $this->_theme->baseUrl?><!--/assets/img/video/1.mp4"  type="video/mp4">-->
+        <!--                        <source src="movie.ogg"  type="video/ogg">-->
+        <!--                    </video>-->
+        <!--                    <div>-->
+        <!--                        <a href = "javascript:void(0)" onclick = "closeDialog()" style="padding-right: 0px;padding-top: 0px;"><img src="--><?php //echo $this->_theme->baseUrl?><!--/assets/img/delete.png" style="position: absolute;top: 0px; right: 0px;"></a>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+
+    </div>
+
+</div>
+
+<!--
+        <div class="py-5" style="    position: absolute;
+    z-index: 99;
+    left: 0;
+    right: 0;
+    bottom: 0;
+background-color: rgba(255,255,255,0.1);">
+            <div class="container">
+                <div class="row gap-y">
+                    <div class="col-md-6 col-xl-3">
+                        <div class="media">
+                            <div class="mr-5 mt-2 w-50px">
+                                <i class="icon-recycle lead-6"></i>
+                            </div>
+
+                            <div class="media-body">
+                                <h6 class="mb-0">更快捷</h6>
+                                <p class="mb-0">三网合一，5秒可达</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-xl-3">
+                        <div class="media">
+                            <div class="mr-5 mt-2 w-50px">
+                                <i class="icon-recycle lead-6"></i>
+                            </div>
+
+                            <div class="media-body">
+                                <h6 class="mb-0">更简单</h6>
+                                <p class="mb-0">API调用简单，快速上手</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-xl-3">
+                        <div class="media">
+                            <div class="mr-5 mt-2 w-50px">
+                                <i class="icon-recycle lead-6"></i>
+                            </div>
+
+                            <div class="media-body">
+                                <h6 class="mb-0">更稳定</h6>
+                                <p class="mb-0">专线机房，99%到达率</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-xl-3">
+                        <div class="media">
+                            <div class="mr-5 mt-2 w-50px">
+                                <i class="icon-recycle lead-6"></i>
+                            </div>
+
+                            <div class="media-body">
+                                <h6 class="mb-0">更安心</h6>
+                                <p class="mb-0">7x24全天候服务，安心使用</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+-->
+</header>
+</a>
+<!-- /Banner -->
+<!-- Main Content -->
+<main class="main-content">
+    <!-- 产品 -->
+    <section class="section">
+        <div class="container">
+            <header class="section-header mb-7">
+                <h2>致力于成为业界领先的通信产品</h2>
+                <p class="lead mb-0">以开放API及SDK的方式向开发者提供通讯服务</p>
+            </header>
+            <el-tabs class="home-tabs" v-model="activeTabs" @tab-click="tabsHandleClick">
+                <el-tab-pane label="手机验证码" name="first">
+                    <div slot="label">
+                        <a class="px-6 pb-6 text-default">
+                            <p>
+                  <span class="bdicon-evo" data-options="
+    name: check-alt.svg;
+    size: 60px;
+    style: lines;
+    strokeColorAction: #0facf3;
+    strokeColor: #999999;
+    colorsOnHover: custom;
+    eventType: hover;
+    eventOn: grandparent;
+    strokeWidthFactorOnHover:.8;
+"></span>
+                            </p>
+                            <h5 class="fw-500 mt-4">短信验证</h5>
+                        </a>
+                    </div>
+                    <div class="card card-body bg-light px-8 py-8 border">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <h4>手机验证码</h4>
+                                <a href="/user/register.html" class="btn btn-primary w-150">马上开通</a>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="media mb-4">
+                                    <div class="media-body">
+                                        <h6>短信验证码</h6>
+                                        <p class="mb-1">合作三大运营商，通道稳定无维护，提供各开发语言DEMO及插件，15分钟快速接入！</p>
+                                        <a href="<?php echo $this->createUrl('page/show/sms')?>">查看详情</a>
+                                    </div>
+                                </div>
+
+                                <div class="media mb-4">
+                                    <div class="media-body">
+                                        <h6>语音验证码</h6>
+                                        <p class="mb-1">防刷单，避免固话、黑名单等短信盲区，防止客户流失。</p>
+                                        <a href="<?php echo $this->createUrl('page/show/voice')?>">查看详情</a>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-4">
+                                <div class="media mb-4">
+                                    <div class="media-body">
+                                        <h6>国际验证码</h6>
+                                        <p class="mb-1">连通全球200多个国家和地区协助您拓展全球业务。</p>
+                                        <a href="<?php echo $this->createUrl('page/show/sms_international')?>">查看详情</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </el-tab-pane>
+                <el-tab-pane label="通知类" name="second">
+                    <div slot="label">
+                        <a class="px-6 pb-6 text-default">
+                            <p>
+                  <span class="bdicon-evo" data-options="
+    name: comment.svg;
+    size: 60px;
+    style: lines;
+    strokeColorAction: #0facf3;
+    strokeColor: #999999;
+    colorsOnHover: custom;
+    eventType: hover;
+    eventOn: grandparent;
+    strokeWidthFactorOnHover:.8;
+"></span>
+                            </p>
+                            <h5 class="fw-500 mt-4">语音验证</h5>
+                        </a>
+                    </div>
+                    <div class="card card-body bg-light px-8 py-8 border">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <h4>短信语音通知</h4>
+                                <a href="/user/register.html" class="btn btn-primary w-150">马上开通</a>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="media mb-4">
+                                    <div class="media-body">
+                                        <h6>短信通知</h6>
+                                        <p class="mb-1">覆盖三网，及时送达，支持多种开发语言，快速集成</p>
+                                        <a href="<?php echo $this->createUrl('page/show/sms_notice')?>">查看详情</a>
+                                    </div>
+                                </div>
+                                <div class="media mb-4">
+                                    <div class="media-body">
+                                        <h6>语音通知</h6>
+                                        <p class="mb-1">快速送达，无遗漏烦忧，轻松接入</p>
+                                        <a href="<?php echo $this->createUrl('page/show/voice_notice')?>">查看详情</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <!--<div class="media mb-4">
+                                  <div class="media-body">
+                                    <h6>国际验证码</h6>
+                                    <p class="mb-1">连通全球200多个国家和地区协助您拓展全球业务。</p>
+                                    <a href="###">查看详情</a>
+                                  </div>
+                                </div>-->
+                            </div>
+                        </div>
+                    </div>
+
+                </el-tab-pane>
+                <el-tab-pane label="视频短信" name="third">
+                    <div slot="label">
+                        <a class="px-6 pb-6 text-default">
+                            <p>
+                  <span class="bdicon-evo" data-options="
+    name: paper-plane.svg;
+    size: 60px;
+    style: lines;
+    strokeColorAction: #0facf3;
+    strokeColor: #999999;
+    colorsOnHover: custom;
+    eventType: hover;
+    eventOn: grandparent;
+    strokeWidthFactorOnHover:.8;
+"></span>
+                            </p>
+                            <h5 class="fw-500 mt-4">视频短信</h5>
+                        </a>
+                    </div>
+                    <div class="card card-body bg-light px-8 py-8 border">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <h4>视频短信</h4>
+                                <a href="/user/register.html" class="btn btn-primary w-150">马上开通</a>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="media mb-4">
+                                    <div class="media-body">
+                                        <h6>视频短信</h6>
+                                        <p class="mb-1">
+                                            支持文字、短链接、图片、语音、视频,丰富展示，直观表达，免流量，超高清
+                                        </p>
+                                        <a href="http://www.sioo.cn/product/vmg">查看详情</a>
+                                    </div> 
+                                </div> 
+
+
+
+                                <div class="media mb-4">
+                                    <div class="media-body">
+                                        <h6>流量直充</h6>
+                                        <p class="mb-1">
+                                            简单轻松接入，兼容所有类型应用 支持三大运营商，轻松玩转手机流量
+                                        </p>
+                                        <a href="<?php echo $this->createUrl('page/show/traffic')?>">查看详情</a>
+                                    </div> 
+                                </div> 
+                                
+                                <!--                                    <div class="media mb-4">-->
+                                <!--                                        <div class="media-body">-->
+                                <!--                                            <h6>彩信营销</h6>-->
+                                <!--                                            <p class="mb-1">-->
+                                <!--                                                图文并貌，生动直观-->
+                                <!--                                            </p>-->
+                                <!--                                            <a href="###">查看详情</a>-->
+                                <!--                                        </div>-->
+                                <!--                                    </div>-->
+                            </div>
+                            <!--                                <div class="col-md-4">-->
+                            <!--                                    <div class="media mb-4">-->
+                            <!--                                        <div class="media-body">-->
+                            <!--                                            <h6>短信微信公众号</h6>-->
+                            <!--                                            <p class="mb-1">无需关注，接入简便，让短信传递企业价值</p>-->
+                            <!--                                            <a href="###">查看详情</a>-->
+                            <!--                                        </div>-->
+                            <!--                                    </div>-->
+                            <!--                                </div>-->
+                        </div>
+                    </div>
+                </el-tab-pane>
+                <el-tab-pane label="用户管理" name="four">
+                    <div slot="label">
+                        <a class="px-6 pb-6 text-default">
+                            <p>
+                  <span class="bdicon-evo" data-options="
+    name: drop.svg;
+    size: 60px;
+    style: lines;
+    strokeColorAction: #0facf3;
+    strokeColor: #999999;
+    colorsOnHover: custom;
+    eventType: hover;
+    eventOn: grandparent;
+    strokeWidthFactorOnHover:.8;
+"></span>
+                            </p>
+                            <h5 class="fw-500 mt-4">品牌推广</h5>
+                        </a>
+                    </div>
+                   <div class="card card-body px-8 py-8 bg-light border">
+
+                 
+                        <div class="row">
+                            <div class="col-md-4">
+                                <h4>品牌推广</h4>
+                                <a href="http://www.sioo.cn/product/wby" class="btn btn-primary w-150">马上开通</a>
+                            </div>
+
+                            <div class="col-md-4">
+                                    <div class="media mb-4">
+
+					    <div class="media-body">
+						<h6>官网优</h6>
+						<p class="mb-1">官网上首页，核心关键词SEO，快速提排名</p>
+						<a href="http://www.sioo.cn/product/wby">查看详情</a>
+					    </div>
+				     </div>
+				<div class="media mb-4">
+                                   <div class="media-body">
+                                        <h6>权重提升</h6>
+                                        <p class="mb-1">官网权重越高，官网流量越大</p>
+                                        <a href="http://www.sioo.cn/product/wby">查看详情</a>
+                                    </div>
+				 </div>
+			 </div>
+			<div class="col-md-4">
+				 <div class="media mb-4">
+                                   <div class="media-body">
+                                        <h6>问答优</h6>
+                                        <p class="mb-1">通过问答优化，提升曝光量，提升口碑</p>
+                                        <a href="http://www.sioo.cn/product/wby">查看详情</a>
+                                    </div>
+				</div>
+				 <div class="media mb-4">
+                                    <div class="media-body">
+                                        <h6>整站优</h6>
+                                        <p class="mb-1">对整个网站进行综合优化，提升官网排名</p>
+                                        <a href="http://www.sioo.cn/product/wby">查看详情</a>
+                                    </div>
+				</div>
+			</div>
+<div class="col-md-4" style="margin-left: 348px">
+				 <div class="media mb-4" >
+                                   <div class="media-body">
+                                        <h6>速效优</h6>
+                                        <p class="mb-1">大量关键词快速霸屏百度首页,周期短、见效快,效果更稳定</p>
+                                        <a href="http://www.sioo.cn/product/wby">查看详情</a>
+                                    </div>
+				</div>
+				 <div class="media mb-4">
+                                    <div class="media-body">
+                                        <h6></h6>
+                                        <p class="mb-1"></p>
+                                        <a href="<?php echo $this->createUrl('page/show/traffic')?>"></a>
+                                    </div>
+				</div>
+			</div>
+                         </div>
+                  
+                        </div>
+                
+                </el-tab-pane>
+            </el-tabs>
+        </div>
+    </section>
+    <!-- /产品 -->
+    <!-- 数据 -->
+    <section class="section py-7 text-white bg-fixed"  data-overlay="5">
+        <div class="container">
+            <div class="row gap-y text-center">
+
+                <div class="col-md-3">
+                    <p class="lead-3 text-uppercase ls-2">新增用户</p>
+                    <p class="lead-7 lh-1 fw-700" data-provide="countup" data-from="0" data-to="420"></p>
+                </div>
+
+                <div class="col-md-3">
+                    <p class="lead-3 text-uppercase ls-2">经典案例</p>
+                    <p class="lead-7 lh-1 fw-700" data-provide="countup" data-from="0" data-to="3210"></p>
+                </div>
+
+                <div class="col-md-3">
+                    <p class="lead-3 text-uppercase ls-2">涉及行业</p>
+                    <p class="lead-7 lh-1 fw-700" data-provide="countup" data-from="0" data-to="8"></p>
+                </div>
+
+                <div class="col-md-3">
+                    <p class="lead-3 text-uppercase ls-2">用户答疑</p>
+                    <p class="lead-7 lh-1 fw-700" data-provide="countup" data-from="0" data-to="19232"></p>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- /数据 -->
+    <!-- 优势 -->
+    <section class="section">
+        <div class="container">
+            <header class="section-header">
+                <h2>希奥14年技术积累</h2>
+                <p class="lead">以开放API及SDK的方式向开发者提供通讯服务</p>
+            </header>
+
+
+            <div class="row gap-y">
+
+                <div class="col-md-6 col-xl-3">
+                    <div class="card card-body border hover-shadow-7 text-center">
+                        <p class="my-5">
+                <span class="bdicon-evo" data-options="
+    name: rocket.svg;
+    size: 60px;
+    style: lines;
+    strokeColorAction: #0facf3;
+    strokeColor: #0facf3;
+    colorsOnHover: custom;
+    eventType: hover;
+    eventOn: grandparent;
+    strokeWidthFactorOnHover:.8;
+"></span>
+                        </p>
+                        <h5 class="mb-5 fw-500"><a href="#">5秒送达</a></h5>
+                        <p>三网合一短信通道，分布式集群架构，服务请求毫秒级响应</p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-xl-3">
+                    <div class="card card-body border hover-shadow-7 text-center">
+                        <p class="my-5">
+                <span class="bdicon-evo" data-options="
+    name: morph-connect.svg;
+    size: 60px;
+    style: lines;
+    strokeColorAction: #0facf3;
+    strokeColor: #0facf3;
+    colorsOnHover: custom;
+    eventType: hover;
+    eventOn: grandparent;
+    strokeWidthFactorOnHover:.8;
+"></span>
+                        </p>
+                        <h5 class="mb-5 fw-500"><a href="#">接入灵活</a></h5>
+                        <p>提供各种API及DEMO，快速上线，免费技术支持</p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-xl-3">
+                    <div class="card card-body border hover-shadow-7 text-center">
+                        <p class="my-5">
+                <span class="bdicon-evo" data-options="
+    name: dashboard.svg;
+    size: 60px;
+    style: lines;
+    strokeColorAction: #0facf3;
+    strokeColor: #0facf3;
+    colorsOnHover: custom;
+    eventType: hover;
+    eventOn: grandparent;
+    strokeWidthFactorOnHover:.8;
+"></span>
+                        </p>
+                        <h5 class="mb-5 fw-500"><a href="#">稳定高效</a></h5>
+                        <p>通道状态实时监控，平台智能切换，支持大容量、高并发</p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-xl-3">
+                    <div class="card card-body border hover-shadow-7 text-center">
+                        <p class="my-5">
+                <span class="bdicon-evo" data-options="
+    name: shield.svg;
+    size: 60px;
+    style: lines;
+    strokeColorAction: #0facf3;
+    strokeColor: #0facf3;
+    colorsOnHover: custom;
+    eventType: hover;
+    eventOn: grandparent;
+    strokeWidthFactorOnHover:.8;
+"></span>
+                        </p>
+                        <h5 class="mb-5 fw-500"><a href="#">安全保障</a></h5>
+                        <p>数据加密传输，密码加密存储，发送数据对开发、客服人员隔离</p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-xl-3">
+                    <div class="card card-body border hover-shadow-7 text-center">
+                        <p class="my-5">
+                <span class="bdicon-evo" data-options="
+    name: headphones.svg;
+    size: 60px;
+    style: lines;
+    strokeColorAction: #0facf3;
+    strokeColor: #0facf3;
+    colorsOnHover: custom;
+    eventType: hover;
+    eventOn: grandparent;
+    strokeWidthFactorOnHover:.8;
+"></span>
+                        </p>
+                        <h5 class="mb-5 fw-500"><a href="#">99%到达率</a></h5>
+                        <p>优质106短信通道，99%到达率，安全快速。</p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-xl-3">
+                    <div class="card card-body border hover-shadow-7 text-center">
+                        <p class="my-5">
+                <span class="bdicon-evo" data-options="
+    name: like.svg;
+    size: 60px;
+    style: lines;
+    strokeColorAction: #0facf3;
+    strokeColor: #0facf3;
+    colorsOnHover: custom;
+    eventType: hover;
+    eventOn: grandparent;
+    strokeWidthFactorOnHover:.8;
+"></span>
+                        </p>
+                        <h5 class="mb-5 fw-500"><a href="#">100%的状态回执报告</a></h5>
+                        <p>完善的数据统计,详尽的发送统计和历史查询,发送状态一手掌握。</p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-xl-3">
+                    <div class="card card-body border hover-shadow-7 text-center">
+                        <p class="my-5">
+                <span class="bdicon-evo" data-options="
+    name: users.svg;
+    size: 60px;
+    style: lines;
+    strokeColorAction: #0facf3;
+    strokeColor: #0facf3;
+    colorsOnHover: custom;
+    eventType: hover;
+    eventOn: grandparent;
+    strokeWidthFactorOnHover:.8;
+"></span>
+                        </p>
+                        <h5 class="mb-5 fw-500"><a href="#">智能拦截</a></h5>
+                        <p>智能防范规则，异常发送全拦截，服务更无忧。</p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-xl-3">
+                    <div class="card card-body border hover-shadow-7 text-center">
+                        <p class="my-5">
+                <span class="bdicon-evo" data-options="
+    name: timer.svg;
+    size: 60px;
+    style: lines;
+    strokeColorAction: #0facf3;
+    strokeColor: #0facf3;
+    colorsOnHover: custom;
+    eventType: hover;
+    eventOn: grandparent;
+    strokeWidthFactorOnHover:.8;
+"></span>
+                        </p>
+                        <h5 class="mb-5 fw-500"><a href="#">7x24小时服务</a></h5>
+                        <p>专业技术及服务团队，提供7x24小时服务支持。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /优势 -->
+    <!-- 客户 -->
+    <section class="section bg-light px-5 pb-0">
+
+        <header class="section-header">
+            <h2>我们的解决方案</h2>
+            <p class="lead">以开放API及SDK的方式向开发者提供通讯服务</p>
+        </header>
+
+        <div class="service-list row">
+
+            <div class="col-md-3">
+                <div class="service-item">
+                    <a href="<?php echo $this->createUrl('page/show/industry_ecommerce')?>">
+                        <img src="<?php echo $this->_theme->baseUrl?>/assets/img/img_ds.jpg" />
+                        <div class="item-text">
+                            <h5>01</h5>
+                            <h3>电商解决方案</h3>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="service-item">
+                    <a href="<?php echo $this->createUrl('page/show/industry_logistics')?>">
+                        <img src="<?php echo $this->_theme->baseUrl?>/assets/img/img_wl.jpg" />
+                        <div class="item-text">
+                            <h5>02</h5>
+                            <h3>物流解决方案</h3>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="service-item">
+                    <a href="<?php echo $this->createUrl('page/show/industry_game')?>">
+                        <img src="<?php echo $this->_theme->baseUrl?>/assets/img/img_yx.jpg" />
+                        <div class="item-text">
+                            <h5>03</h5>
+                            <h3>游戏解决方案</h3>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="service-item">
+                    <a href="<?php echo $this->createUrl('page/show/industry_financial')?>">
+                        <img src="<?php echo $this->_theme->baseUrl?>/assets/img/img_jr.jpg" />
+                        <div class="item-text">
+                            <h5>04</h5>
+                            <h3>金融解决方案</h3>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <header class="section-header">
+                <h2>汇聚前沿行业动态</h2>
+            </header>
+            <div class="row gap-y">
+                <div class="col-md-4">
+                    <?php foreach($industry as $key=>$val):?>
+                        <?php if($key == 0):?>
+                            <div class="card border hover-shadow-6 mb-4">
+                                <a href="<?php echo $this->createUrl('post/show',array('id'=>$val['id']))?>"><img style="width: 368px;height: 276px;" class="card-img-top" src="<?php echo $this->_baseUrl?>/<?php echo $val['attach_file']?>" alt="Card image cap"></a>
+                                <div class="p-4 text-center">
+                                    <p><a class="fs-16 mb-0 text-lighter text-uppercase ls-2 fw-400" href="<?php echo $this->createUrl('post/catalog/industry-news')?>">行业动态</a></p>
+                                    <h6 class="mb-0 text-truncate"><a class="text-dark" href="<?php echo $this->createUrl('post/show',array('id'=>$val['id']))?>"><?php echo $val['title']?></a></h6>
+                                </div>
+                            </div>
+                        <?php else:?>
+                            <div class="media bb-1 py-3">
+                                <div class="mr-4 lh-1 lead-5 text-lightest"><span><?php echo date('d',$val['create_time'])?></span><span class="fs-15">/</span><span class="fs-15"><?php echo date('m',$val['create_time'])?></span></div>
+                                <div class="media-body text-truncate">
+                                    <a href="<?php echo $this->createUrl('post/show',array('id'=>$val['id']))?>" class="text-dark"><?php echo $val['title']?></a>
+                                </div>
+                            </div>
+                        <?php endif?>
+                    <?php endforeach?>
+                </div>
+                <div class="col-md-4">
+                    <?php foreach($media as $key=>$val):?>
+                        <?php if($key == 0):?>
+                            <div class="card border hover-shadow-6 mb-4">
+                                <a href="<?php echo $this->createUrl('post/show',array('id'=>$val['id']))?>"><img style="width: 368px;height: 276px;" class="card-img-top" src="<?php echo $this->_baseUrl?>/<?php echo $val['attach_file']?>" alt="Card image cap"></a>
+                                <div class="p-4 text-center">
+                                    <p><a class="fs-16 mb-0 text-lighter text-uppercase ls-2 fw-400" href="<?php echo $this->createUrl('post/catalog/media-news')?>">媒体报道</a></p>
+                                    <h6 class="mb-0 text-truncate"><a class="text-dark" href="<?php echo $this->createUrl('post/show',array('id'=>$val['id']))?>"><?php echo $val['title']?></a></h6>
+                                </div>
+                            </div>
+                        <?php else:?>
+                            <div class="media bb-1 py-3">
+                                <div class="mr-4 lh-1 lead-5 text-lightest"><span><?php echo date('d',$val['create_time'])?></span><span class="fs-15">/</span><span class="fs-15"><?php echo date('m',$val['create_time'])?></span></div>
+                                <div class="media-body text-truncate">
+                                    <a href="<?php echo $this->createUrl('post/show',array('id'=>$val['id']))?>" class="text-dark"><?php echo $val['title']?></a>
+                                </div>
+                            </div>
+                        <?php endif?>
+                    <?php endforeach?>
+                </div>
+                <div class="col-md-4">
+                    <?php foreach($company as $key=>$val):?>
+                        <?php if($key == 0):?>
+                            <div class="card border hover-shadow-6 mb-4">
+                                <a href="<?php echo $this->createUrl('post/show',array('id'=>$val['id']))?>"><img style="width: 368px;height: 276px;" class="card-img-top" src="<?php echo $this->_baseUrl?>/<?php echo $val['attach_file']?>" alt="Card image cap"></a>
+                                <div class="p-4 text-center">
+                                    <p><a class="fs-16 mb-0 text-lighter text-uppercase ls-2 fw-400" href="<?php echo $this->createUrl('post/catalog/company-news')?>">公司动态</a></p>
+                                    <h6 class="mb-0 text-truncate"><a class="text-dark" href="<?php echo $this->createUrl('post/show',array('id'=>$val['id']))?>"><?php echo $val['title']?></a></h6>
+                                </div>
+                            </div>
+                        <?php else:?>
+                            <div class="media bb-1 py-3">
+                                <div class="mr-4 lh-1 lead-5 text-lightest"><span><?php echo date('d',$val['create_time'])?></span><span class="fs-15">/</span><span class="fs-15"><?php echo date('m',$val['create_time'])?></span></div>
+                                <div class="media-body text-truncate">
+                                    <a href="<?php echo $this->createUrl('post/show',array('id'=>$val['id']))?>" class="text-dark"><?php echo $val['title']?></a>
+                                </div>
+                            </div>
+                        <?php endif?>
+                    <?php endforeach?>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="section bg-light">
+        <div class="container">
+            <div class="pb-7 text-center" data-provide="slider" data-autoplay="true" data-slides-to-show="5" data-dots="true">
+                <!--                    <div><img src="--><?php //echo $this->_theme->baseUrl?><!--/assets/img/partner/1.png" alt="partner 1"></div>-->
+                <div><img src="<?php echo $this->_theme->baseUrl?>/assets/img/partner/2.png" alt="partner 2"></div>
+                <div><img src="<?php echo $this->_theme->baseUrl?>/assets/img/partner/3.png" alt="partner 3"></div>
+                <div><img src="<?php echo $this->_theme->baseUrl?>/assets/img/partner/4.png" alt="partner 4"></div>
+                <div><img src="<?php echo $this->_theme->baseUrl?>/assets/img/partner/5.png" alt="partner 5"></div>
+                <div><img src="<?php echo $this->_theme->baseUrl?>/assets/img/partner/6.png" alt="partner 6"></div>
+                <div><img src="<?php echo $this->_theme->baseUrl?>/assets/img/partner/7.png" alt="partner 6"></div>
+                <!--                    <div><img src="--><?php //echo $this->_theme->baseUrl?><!--/assets/img/partner/8.png" alt="partner 6"></div>-->
+                <div><img src="<?php echo $this->_theme->baseUrl?>/assets/img/partner/9.png" alt="partner 6"></div>
+                <div><img src="<?php echo $this->_theme->baseUrl?>/assets/img/partner/10.png" alt="partner 6"></div>
+                <!--                    <div><img src="--><?php //echo $this->_theme->baseUrl?><!--/assets/img/partner/11.png" alt="partner 6"></div>-->
+                <div><img src="<?php echo $this->_theme->baseUrl?>/assets/img/partner/12.png" alt="partner 6"></div>
+                <div><img src="<?php echo $this->_theme->baseUrl?>/assets/img/partner/13.png" alt="partner 6"></div>
+                <div><img src="<?php echo $this->_theme->baseUrl?>/assets/img/partner/14.png" alt="partner 6"></div>
+                <div><img src="<?php echo $this->_theme->baseUrl?>/assets/img/partner/15.png" alt="partner 6"></div>
+            </div>
+
+        </div>
+    </section>
+
+</main>
+<?php $this->renderPartial('/_include/footer')?>
+</div>
+<?php $this->renderPartial('/_include/common_js')?>
+<!-- import Vue Init JavaScript -->
+
+<style type="text/css">
+    .slick-dots li{display: none;}
+    .slick-dotted.slick-slider{margin-bottom: -25px;}
+    .white_content {
+        display: none;
+        position: absolute;
+        top: 25%;
+        left: 25%;
+        width: 700px;
+        height: 400px;
+        z-index:1202;
+
+    }
+</style>
+<!-- import Vue Init JavaScript -->
+<script>
+    $(function(){
+    })
+
+    function openDialog(){
+        var myVideo = document.getElementsByTagName('video')[0];
+        document.getElementById('light').style.display='block';
+        myVideo.play();
+    }
+    function closeDialog(){
+        var myVideo = document.getElementsByTagName('video')[0];
+        document.getElementById('light').style.display='none';
+        myVideo.pause();
+    }
+</script>
+<script>
+    new Vue({
+        el: '#app',
+        data: function() {
+            return {
+                activeTabs:'first'
+            }
+        },
+        created() {
+
+        },
+        mounted() {
+
+        },
+        watch: {},
+        computed: {
+
+        },
+        methods: {
+            tabsHandleClick(){
+
+            }
+        }
+    })
+</script>
+
+
+
+
+<script src="http://apps.bdimg.com/libs/jquery/1.9.1/jquery.js"></script>
+<link href="<?php echo $this->_theme->baseUrl?>/assets/css/devices/devices.min.css" rel="stylesheet">
+<script src="<?php echo $this->_theme->baseUrl?>/assets/js/gt.js"></script>
+
+<script type="text/javascript">
+
+    function getCode(token) {
+
+        var mobile = $("#mobile").val();
+        if($.trim(mobile) == "") {
+            alert('发送失败')
+        } else if(!mobile.match(/^1[345789][\d]{9}$/)){
+            alert('发送失败')
+        }else{
+            $.post("/user/code", {'mobile': mobile, 'type': 1, 'token':token}, function (res) {
+                if (res.state == 200) {
+                    alert('发送成功');
+                } else {
+                    alert('您的手机已注册，请联系在线客服进行沟通哦！')
+                }
+
+            }, 'json');
+        }
+
+    }
+
+    var handlerEmbed = function (captchaObj) {
+
+        captchaObj.onSuccess(function () {
+
+            // 先校验是否点击了验证码
+            var validate = captchaObj.getValidate();
+            if (!validate) {
+                alert('请先完成验证！');
+                return;
+            }
+            var mobile = $("#mobile").val();
+            // 提交验证码信息，比如登陆页面，你需要提交登陆信息，用户名和密码等登陆数据
+            $.ajax({
+                url: "/gt3-php-sdk-master/web/VerifyLoginServlet.php",
+                type: "post",
+                dataType: "json",
+                data: {
+                    // 用户名和密码等其他数据，自己获取，不做演示
+                    mobile: mobile,
+                    // 验证码数据，这些数据不用自己获取
+                    // 这是二次验证所需的三个值
+                    // 当然，你也可以直接设置验证码单独校验，省略其他信息
+                    geetest_challenge: validate.geetest_challenge,
+                    geetest_validate: validate.geetest_validate,
+                    geetest_seccode: validate.geetest_seccode
+                },
+                // 这里是正确返回处理结果的处理函数
+                // 假设你就返回了1，2，3
+                // 当然，正常情况是返回JSON数据
+                success: function (result) {
+                    console.log(result.code);
+                    if (result.code==200) {
+                        getCode(result.msg)
+                    } else if(result.code==400) {
+                        alert("登陆错误！")
+                    }
+                }
+            });
+
+        });
+
+        $("#popup-submit").click(function () {
+            captchaObj.show();
+        });
+
+        // 更多接口参考：http://www.geetest.com/install/sections/idx-client-sdk.html
+        captchaObj.appendTo("#popup-captcha");
+    };
+    $.ajax({
+        // 获取id，challenge，success（是否启用failback）
+        url: "/gt3-php-sdk-master/web/StartCaptchaServlet.php?t=" + (new Date()).getTime(), // 加随机数防止缓存
+        type: "get",
+        dataType: "json",
+        success: function (data) {
+            //console.log(data);
+            // 使用initGeetest接口
+            // 参数1：配置参数
+            // 参数2：回调，回调的第一个参数验证码对象，之后可以使用它做appendTo之类的事件
+            initGeetest({
+                gt: data.gt,
+                challenge: data.challenge,
+                new_captcha: data.new_captcha,
+                product: "popup", // 产品形式，包括：float，embed，popup。注意只对PC版验证码有效
+                offline: !data.success // 表示用户后台检测极验服务器是否宕机，一般不需要关注
+                // 更多配置参数请参见：http://www.geetest.com/install/sections/idx-client-sdk.html#config
+            }, handlerEmbed);
+        }
+    });
+
+
+
+</script>
+<script>
+    $(function(){
+        var tabNum=$(".card-1").find(".card");
+        var contentNum=$(".tabs-body").children();
+        var timer;
+        $(".tabs-body > p").css({"display":"none"});
+        $(".tabs-body > p:first-child").css({"display":"block"});
+        $(tabNum).each(function(index){
+            $(this).hover(function(){
+                var that=$(this)
+                timer=window.setTimeout(function(){
+                    $(".tabs-body > p").css({"display":"none"});
+                    $(contentNum).eq(index).css({"display":"block"});
+                    tabNum.removeClass('active');
+                    that.addClass('active');
+                },100)
+            },function(){
+                window.clearTimeout(timer);
+            })
+        })
+    })
+
+</script>
+
+</body>
 </html>
